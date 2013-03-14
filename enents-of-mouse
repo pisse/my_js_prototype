@@ -1,0 +1,64 @@
+//元素的尺寸与坐标
+//offsetLeft和offsetTop返回X和Y的坐标,相对文档 
+function getElementPosition(e){
+  var x=0,y=0;
+	while(e!=null){
+		x+=e.offsetLeft;
+		y+=e.offsetTop;
+		e=e.offsetParent;
+	}
+	for(var e=e.elt.parentNode;e!=null&&e.nodeType == 1;e=e.parentNode){
+		x-=e.scrollLeft;
+		y-=e.scrollTop;
+	}
+	return {x:x,y:y}
+}	
+
+//查询窗口的视口尺寸
+function getViewportSize(w){
+    w=w||window;
+	if(w.innerWidth!=null)return {w:w.innerWidth,h:w.innerHeight};
+	var d = document;
+	if(document.compatMode == "CSS1Compat")
+		return {w:d.documentElement.clientWidth,
+			h:d.documentElement.clientHeight};
+	return {w:d.body.clientWidth,h:d.body.clientWidth};
+}
+
+//获取鼠标的坐标
+function getMousePos(ev) {
+    if (!ev) {
+		ev = this.getEvent();
+	}
+	if (ev.pageX || ev.pageY) {
+		return {
+			x: ev.pageX,
+			y: ev.pageY
+		};
+	}
+
+	if (document.documentElement && document.documentElement.scrollTop) {
+		return {
+			x: ev.clientX + document.documentElement.scrollLeft - document.documentElement.clientLeft,
+			y: ev.clientY + document.documentElement.scrollTop - document.documentElement.clientTop
+		};
+	}
+	else if (document.body) {
+		return {
+			x: ev.clientX + document.body.scrollLeft - document.body.clientLeft,
+			y: ev.clientY + document.body.scrollTop - document.body.clientTop
+		};
+	}
+}
+
+//offsetWidth和offsetHeight返回元素的屏幕尺寸,返回的尺寸包含元素的边框和内边框
+//offsetLeft和offsetTop返回X和Y的坐标,相对文档
+
+//clientWidth和clientHeight与offsetWidth,offsetHeight类似,不同的不包含边框,只包含内边距
+//clientLeft和clientTop通常等于左边和上边的边框宽度
+
+//scrollWidth和scrollHeight是元素的内容区域加上它的内边距再加上任何溢出内容的尺寸.没有溢出时等于clientWidth和clientHeight
+//scrollLeft和scrollTop是指元素滚动条的位置
+
+详细请查看:http://www.cnblogs.com/panjun-Donet/articles/1294033.html
+
