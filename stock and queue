@@ -1,0 +1,51 @@
+//原文链接
+http://www.cnblogs.com/rubylouvre/archive/2012/11/23/2785051.html#2561503
+
+function Stack(){   }
+Stack.prototype = {
+    add: function(el, pt){
+        this._first =  pt = {//_first是不断变的
+            _next:this._first,
+            el: el
+        }
+        if (pt._next) {
+            pt._next._prev = pt;
+        }
+        return this;
+    }
+}
+var s = new Stack;
+ 
+s.add("1").add("2").add("3")
+ 
+var pt = s._first;
+while (pt) {
+    alert(pt.el)
+    pt = pt._next;
+}
+接着是列队,先进先出：
+
+function Queue(){   }
+Queue.prototype = {
+    add: function(el){
+        if( this._last ){ 
+            this._last =  this._last._next = {//_last是不断变的
+                el: el,
+                _next: null//设置_last属性表示最后一个元素，并且让新增元素成为它的一个属性值
+            }
+        }else{
+            this._last = this._first = {//我们要设置一个_first属性表示第一个元素
+                el: el,
+                _next: null
+            }
+        }
+        return this;
+    }
+}
+var q = new Queue
+q.add("1").add("2").add("3")
+var pt = q._first;
+while (pt) {
+    console.log(pt.el)
+    pt = pt._next;
+}
