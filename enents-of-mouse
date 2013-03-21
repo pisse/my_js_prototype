@@ -7,7 +7,7 @@ function getElementPosition(e){
 		y+=e.offsetTop;
 		e=e.offsetParent;
 	}
-	for(var e=e.elt.parentNode;e!=null&&e.nodeType == 1;e=e.parentNode){
+	for(var e=e.parentNode;e!=null&&e.nodeType == 1;e=e.parentNode){
 		x-=e.scrollLeft;
 		y-=e.scrollTop;
 	}
@@ -25,11 +25,9 @@ function getViewportSize(w){
 	return {w:d.body.clientWidth,h:d.body.clientWidth};
 }
 
-//获取鼠标的坐标
+//获取鼠标的坐标,相对于文档
 function getMousePos(ev) {
-    if (!ev) {
-		ev = this.getEvent();
-	}
+        ev = event||window.event;
 	if (ev.pageX || ev.pageY) {
 		return {
 			x: ev.pageX,
