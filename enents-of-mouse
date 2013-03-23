@@ -1,13 +1,13 @@
 //元素的尺寸与坐标
-//offsetLeft和offsetTop返回X和Y的坐标,相对文档 
+//offsetLeft和offsetTop返回X和Y的坐标,相对视口 
 function getElementPosition(e){
-  var x=0,y=0;
+  var x=0,y=0,elt=e;
 	while(e!=null){
 		x+=e.offsetLeft;
 		y+=e.offsetTop;
 		e=e.offsetParent;
 	}
-	for(var e=e.parentNode;e!=null&&e.nodeType == 1;e=e.parentNode){
+	for(var e=elt.parentNode;e!=null&&e.nodeType == 1;e=e.parentNode){
 		x-=e.scrollLeft;
 		y-=e.scrollTop;
 	}
