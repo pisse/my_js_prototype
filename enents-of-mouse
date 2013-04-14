@@ -13,6 +13,16 @@ function getElementPosition(e){
 	}
 	return {x:x,y:y}
 }	
+//offsetLeft和offsetTop返回X和Y的坐标,相对文档
+function getElementPosition(e){
+  var x=0,y=0,elt=e;
+	while(e!=null){
+		x+=e.offsetLeft;
+		y+=e.offsetTop;
+		e=e.offsetParent;
+	}
+	return {x:x,y:y}
+}
 
 //查询窗口的视口尺寸
 function getViewportSize(w){
